@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Employee Details</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script data-main="js/main" src="js/libs/require/require.js" type="text/javascript"></script>
+        <link href="css/libs/oj/v2.0.2/alta/oj-alta-min.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+       <div><h1>Please enter employee data-</h1></div>
+       <div id="globalBody"  class="oj-form" style="width: 100%">
+        <form id="myform" action="" method="post">   
+           <div id ="left"  style="float:left; width:50%;">
+            <label for="fName" >First Name</label>
+            <input id="fName" data-bind="ojComponent: {
+                    component: 'ojInputText', 
+                    value:fName,
+                    required: isRequired
+                   }">
+
+            <label for="lName" >Last Name</label>
+            <input id="lName" data-bind="ojComponent: {
+                    component: 'ojInputText', 
+                    value:lName,
+                    required: isRequired
+                   }">
+
+            <p>First name: <strong data-bind="text: fName"></strong></p>
+            <p>Last name: <strong data-bind="text: lName"></strong></p>
+    
+            <label id="empGender">Gender</label>
+            <!-- You need to set the aria-labelledby attribute
+                 to make this accessible.
+                 role="radiogroup" is set for you by ojRadioset. -->
+            <div id="gender" aria-labelledby="empGender"
+                 data-bind="ojComponent: {
+                  component: 'ojRadioset', 
+                  value: gender,
+                    required: isRequired}" >
+                <span class="oj-choice-col">
+                    <input id="Male" type="radio" name="sex" value="Male">
+                    <label for="Male">Male</label>
+                </span>
+                <span class="oj-choice-col">
+                    <input id="female" type="radio" name="sex" value="Female">
+                    <label for="female">Female</label>
+                </span>      
+
+            </div>    
+            <br/>
+            
+            <span>Gender value is: </span>
+            <span id="genderVal" data-bind="text: gender"></span>
+
+            <label for="age">Age</label> 
+            <input id="age"
+                   data-bind="ojComponent: {
+                    component: 'ojInputNumber', 
+                    min:min, 
+                    value:ageValue,
+                    required: isRequired}"/>
+            <span>Current component value is: </span>
+            <span id="age-value" data-bind="text: ageValue"></span>
+            
+            <label for="salary">Yearly Income  </label>
+            <select id="salary" data-bind="ojComponent: {component: 'ojSelect',
+                                                              value: salary,
+                    required: isRequired,
+                                                              rootAttributes: {style:'max-width:20em'}}">
+              <option value="sal0">0 - 3 Lakhs</option>
+              <option value="sal8">3 - 8 Lakhs</option>
+              <option value="sal15">8 - 15 Lakhs</option>
+              <option value="sal30">15 - 30 Lakhs</option>
+              <option value="salAbove">Above 30 Lakhs</option>
+            </select>
+
+            <div>
+              <br/>
+              <label for="salVal">Current salary is  </label>
+              <span id="salVal" data-bind="text: ko.toJSON(salary)"></span>
+            </div>
+            
+            <label for="fName" >Address Line1</label>
+            <input id="fName" data-bind="ojComponent: {
+                    component: 'ojInputText', 
+                    value:addLine1,
+                    required: isRequired
+                   }">
+
+            <label for="lName" >Address Line2</label>
+            <input id="lName" data-bind="ojComponent: {
+                    component: 'ojInputText', 
+                    value:addLine2
+                   }">
+            
+            <label for="city" >City</label>
+            <input id="city" data-bind="ojComponent: {
+                    component: 'ojInputText', 
+                    value:city,
+                    required: isRequired
+                   }">
+            
+            <label for="state" >State</label>
+            <input id="state" data-bind="ojComponent: {
+                    component: 'ojInputText', 
+                    value:state,
+                    required: isRequired
+                   }">
+
+            <p>Address: <strong data-bind="text: addLine1"></strong>,<strong data-bind="text: addLine1"></strong>,<strong data-bind="text: city"></strong>,<strong data-bind="text: state"></strong></p>
+            
+            <label for="email" >Email</label>
+            <input id="email" data-bind="ojComponent: {
+                    component: 'ojInputText', 
+                    value:email,
+                   }">
+            
+            <label id="newsLetter" for="switch">Subscribe to newsletter</label>
+            <input id="switch" data-bind="ojComponent: {component: 'ojSwitch', value: isChecked}" /><br/><br/>
+            
+            <input id="submit" type="submit" 
+           data-bind=" 
+                      ojComponent: {component: 'ojButton', label: 'Submit'}"/>
+           
+           </div> </form>
+           <div id="right" style="float:right; width:50%;"> 
+               <div id="pieChart" data-bind="ojComponent: {
+            component: 'ojChart', 
+            type: 'pie', 
+            series: pieSeriesValue,
+            animationOnDisplay: 'auto',
+            animationOnDataChange: 'auto',
+            hoverBehavior: 'dim'
+        }"
+        style="max-width:500px;width:100%;height:350px;">
+       </div> 
+          <div id="barChart" data-bind="ojComponent: {
+            component: 'ojChart', 
+            type: 'bar', 
+            orientation: 'vertical',
+            series: barSeriesValue,
+            groups: barGroupsValue, 
+            animationOnDisplay: 'auto',
+            animationOnDataChange: 'auto',
+            hoverBehavior: 'dim'
+        }"
+         style="max-width:500px;width:100%;height:350px;">
+    </div>
+     <div id="donut"  data-bind="ojComponent: {
+        component: 'ojChart',
+        type: 'pie',
+        series: donutSeriesValue,
+        groups: donutGroupsValue,
+        styleDefaults: {pieInnerRadius: ko.toJS(innerRadius)},
+        animationOnDataChange: 'auto',
+        pieCenter: {
+          label: ko.toJS(centerLabel),
+          labelStyle: ko.toJS(labelStyle)}
+        }"
+        style="max-width:500px;width:100%;height:350px;">
+   </div>
+      </div>     
+            
+        </div>
+    </body>
+</html>
