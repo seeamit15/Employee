@@ -15,6 +15,8 @@ public class JDBCExample {
    try{
       //STEP 2: Register JDBC driver
       Class.forName("org.apache.derby.jdbc.ClientDriver");
+      
+      System.out.println("Hi");
 
       //STEP 3: Open a connection
       System.out.println("Connecting to database...");
